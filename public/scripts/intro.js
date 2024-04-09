@@ -9,7 +9,7 @@ $(document).ready(function () {
     });
 });
 
-function authenticate(username, password, callback) {
+ function authenticate(username, password, callback) {
     // Make a POST request to /api2/json/access/ticket endpoint to authenticate
     $.ajax({
         url: 'https://ccscloud.dlsu.edu.ph:20108/api2/json/access/ticket',
@@ -46,4 +46,11 @@ function performActions(username, password) {
             }
         });
     });
+}
+
+async function fetchPerformAction(username, password) {
+    const response = await fetch('/api2/json/nodes', {
+        method: "POST",
+        mode: "cors",
+    }) 
 }

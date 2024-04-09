@@ -1,7 +1,11 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
+const dotenv = require('dotenv')
+dotenv.config()
 
 const app = express();
+
+const dbService = require('./conn/dbService')
 
 app.use(express.static(__dirname + '/public')); 
 app.use(express.json()); 
