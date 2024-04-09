@@ -5,6 +5,7 @@ const https = require('https');
 const Proxmox = require('proxmox');//https://www.npmjs.com/package/proxmox
 const { time } = require('console');
 const { hostname } = require('os');
+const { connectCentral, closeCentral } = require('../database/index');
 
 const Proxmox_Server0 = new Proxmox({
     hostname: 'STADVDB36-Server0',

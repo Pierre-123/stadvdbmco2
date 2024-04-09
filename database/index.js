@@ -1,7 +1,8 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 const CentralNode = mysql.createConnection({
-    host: '10.2.0.108',
+    host: 'ccscloud.dlsu.edu.ph',
+    port: '20108',
     user: 'root',
     password: 'w5EuLsQ8WHk2XyfJaZhSNen4',
     database: 'Central'
@@ -21,13 +22,17 @@ const VisMinNode = mysql.createConnection({
     database: 'VisMin'
 })
 
+connectCentral()
 
 function connectCentral() {
     CentralNode.connect((err)=>{
         if(err){
             console.log(err);
+            
+        } else {
+            console.log('Connected to Central Node')
         }
-        console.log('Connected to Central Node')
+        
     })
 }
 

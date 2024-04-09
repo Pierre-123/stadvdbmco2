@@ -22,6 +22,7 @@
     "jquery": "^3.7.1",
     "mongoose": "^8.2.3",
     "mysql": "^2.18.1",
+    "mysql2": "^3.9.4",
     "nodemon": "^3.1.0",
     "proxmox": "^1.0.0",
     "winston": "^3.13.0"

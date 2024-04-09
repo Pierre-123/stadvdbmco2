@@ -2,8 +2,6 @@ const proxmoxProxy = 'http://localhost:20108/proxy';
 const test_button = $("#test-btn");
 const con_central_button = $("#connect-central-btn");
 const clo_central_button = $("#close-central-btn");
-import { connectCentral, closeCentral } from '.../database/index.js';
-
 
 $(document).ready(function () {
     test_button.click(function(){

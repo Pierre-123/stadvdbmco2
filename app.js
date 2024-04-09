@@ -11,6 +11,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.json()); 
 app.use(express.urlencoded({ extended:true }));
 
+//require('./database');
 
 //Routes
 const introRoute = require('./routes/intro');
@@ -25,10 +26,7 @@ app.set("views", "./views")
 const port = process.env.PORT || 80;
 app.listen(port, () => {console.log(`Server listening on port ${port}`)});
 
-require('./database');
-
 app.use((req,res,next)=>{
   console.log(`${req.method}:${req.url}`)
   next();
 })
-
