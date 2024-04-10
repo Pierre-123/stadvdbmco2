@@ -2,6 +2,7 @@
 const proxmoxProxy = 'http://localhost:3000/proxy';
 const test_button = $("#test-btn");
 const search_button = $("#search-btn");
+//const create_button = $("#create-btn");
 
 $(document).ready(function () {
     test_button.click(function(){
@@ -12,7 +13,21 @@ $(document).ready(function () {
         search();
         console.log("Search Performed")
     })
+    /*create_button.click(function(){
+        //add();
+        console.log("Create Attempted")
+    })*/
 });
+
+async function add(){
+    try {
+        const response = await fetch('/create');
+        const data=await response.json();
+        console.log(data);
+    } catch (error) {
+        console.log('Error creating data: '+ error);
+    }
+}
 
 async function search(){
     try{

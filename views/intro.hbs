@@ -1,8 +1,61 @@
 
 <main>
-    <label>Name:</label>
-    <input type="text" id="name-input">
-    <button>Add Name</button>
+    <div>
+        <form id="createForm" action="/create" method="POST">
+            <label for="apptid">Appointment ID:</label>
+            <input type="text" id="apptid" name="apptid">
+            <br>
+            <br>
+            <label for="pxid">Patient ID:</label>
+            <input type="text" id="pxid" name="pxid">
+            <br>
+            <br>
+            <label for="doctorid">Doctor ID:</label>
+            <input type="text" id="doctorid" name="doctorid">
+            <br>
+            <br>
+            <label for="hospitalname">Hospital Name:</label>
+            <input type="text" id="hospitalname" name="hospitalname">
+            <br>
+            <br>
+            <label for="City">City:</label><!-- City, Province, RegionCod, Status, Type, Virtual cool if dropdown-->
+            <!-- RegionCode can auto matically fill in region name right???? then yea time queued and queue date we can probably just use current time??? o well start and end time can be null probs. anyway province n city probs fine to be string if proper input***--> 
+            <input type="text" id="City" name="City">
+            <br>
+            <br>
+            <label for="Province">Province:</label>
+            <input type="text" id="Province" name="Province">
+            <br>
+            <br>
+            <label for="RegionCode">Region Code:</label>
+            <select name="RegionCode" id="RegionCodeoption">
+                <option value="I">I</option>
+                <option value="II">II</option>
+                <option value="III">III</option>
+            </select><!-- and etc.-->
+            <br>
+            <br>
+            <label for="status">Status:</label>
+            <select name="status" id="statusoption">
+                <option value="Completed">Completed</option>
+                <option value="Queued">Queued</option>
+            </select>
+            <br>
+            <br>
+            <!-- type is automatically consultation? no other value hmm-->
+            <label for="virtual">Virtual:</label>
+            <select name="virtual" id="virtualoption">
+                <option value="">Not Applicable</option>
+                <option value="true">True</option>
+                <option value="false">False</option>
+            </select>
+            <br>
+            <br>
+            <button type="submit">Add An Entry! :3</button>
+        </form>
+        
+    </div>
+    
 
     <br><br>
     <div>

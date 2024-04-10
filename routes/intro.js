@@ -19,6 +19,15 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.post('/create'), async (req, res)=> {//cannot post :(
+    try {
+        //postData from index controller here, console.log to see whats wrong
+        console.log("Ping!")
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 router.get('/search',  async (req, res) => {
   try {
     const rows = await indexController.getSearchData(req.query.database, req.query.search)
