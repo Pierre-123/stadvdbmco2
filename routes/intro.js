@@ -3,6 +3,7 @@ const router = Router();
 const axios = require('axios');
 const https = require('https');
 const Proxmox = require('proxmox');//https://www.npmjs.com/package/proxmox
+const pool = require('../conn/dbService')
 const { time } = require('console');
 const { hostname } = require('os');
 const username = 'stadvdb36';
@@ -15,8 +16,14 @@ const Proxmox_Server0 = new Proxmox({
 })
 
 
-router.get('/', (req, res) => {
-    res.render('intro', {title: "A Page"});
+router.get('/', async (req, res) => {
+  try {
+    const rows = await pool.query("SELECT * FROM appointments LIMIT 5")
+    console.log(rows)
+  } catch (err) {
+    console.log(err)
+  }
+    res.render('intro', {title: "A Page", rows: this.rows})
 });
 
 router.get('/proxy', async (req, res) => {
@@ -35,5 +42,6 @@ router.get('/proxy', async (req, res) => {
       res.status(500);
     }
   });
+
 
 module.exports = router;

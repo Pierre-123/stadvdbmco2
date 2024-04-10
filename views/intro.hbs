@@ -5,6 +5,40 @@
         Ping
     </button>
 </div>
+<main>
+    <label>Name:</label>
+    <input type="text" id="name-input">
+    <button>Add Name</button>
+
+    <br><br>
+    <div>
+        <input placeholder="search by id" id="search-by-id">
+        <button id="search-btn">Search</button>
+    </div>
+
+    <table id="table">
+        <thead>
+            <th>ID</th>
+            <th>status</th>
+            <th>time queue</th>
+            <th>type</th>
+            <th>virtual</th>
+        </thead>
+        {{#if rows}}
+            {{#each rows}}
+                <tbody>
+                    <tr>
+                        <td>{{rows.appointment_id}}</td>
+                        <td>{{rows.status}}</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            {{/each}}
+        {{else}}
+            <tbody><tr><td class='no-data' colspan=5> No data</td></tr> </tbody>
+        {{/if}}
+    </table>
+</main>
 
 
 <script src="scripts/intro.js"></script>
