@@ -1,10 +1,4 @@
-<div> Hello World - Nothing much yet, console trying to connect with proxmox </div>
 
-<div id="btn_set">
-    <button type="button" id="test-btn">
-        Ping
-    </button>
-</div>
 <main>
     <label>Name:</label>
     <input type="text" id="name-input">
@@ -12,14 +6,14 @@
 
     <br><br>
     <div>
-        <form id="searchForm">
+        <form id="searchForm" action="/search" method="get">
              <label for="database">Choose a car:</label>
                 <select name="database" id="option">
                 <option value="Central">Central</option>
                 <option value="Luzon">Luzon</option>
                 <option value="VisMin">Visayas and Midanao</option>
                 </select> 
-            <input placeholder="search by id" name="search" id="search-by-id">
+            <input placeholder="search by id" type="text" name="search" id="search_by_id">
             <button type="submit" id="search-btn">Search</button>
         </form>
     </div>
@@ -27,19 +21,33 @@
     <table id="table">
         <thead>
             <th>Appointment ID</th>
+            <th>Hospital Name</th>
+            <th>City</th>
+            <th>Province</th>
             <th>Status</th>
             <th>Time queue</th>
             <th>Type</th>
-            <th>virtual</th>
+            <th>Virtual</th>
         </thead>
         {{#each rows}}
             <tbody>
                 <tr>
                     <td>{{apptid}}</td>
+                    {{#if hospitalname}}
+                    <td>{{hospitalname}}</td>
+                    {{else}}
+                    <td>Null</td>
+                    {{/if}}
+                    <td>{{City}}</td>
+                    <td>{{Province}}</td>
                     <td>{{status}}</td>
                     <td>{{TimeQueued}}</td>
                     <td>{{type}}</td>
+                    {{#if Virtual}}
                     <td>{{Virtual}}</td>
+                    {{else}}
+                    <td>Null</td>
+                    {{/if}}
                 </tr>
             </tbody>
         {{else}}

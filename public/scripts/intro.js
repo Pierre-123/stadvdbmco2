@@ -9,9 +9,20 @@ $(document).ready(function () {
         console.log("Actions Performed")
     });
     search_button.click(function(){
-        
+        search();
+        console.log("Search Performed")
     })
 });
+
+async function search(){
+    try{
+        const response = await fetch('/search');
+        const data = await response.json();
+        console.log(data);
+    }catch(error){
+        console.error('Error fetching data: ', error)
+    }
+}
 
 async function connect(){
     try {
