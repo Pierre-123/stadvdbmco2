@@ -9,19 +9,12 @@ const { hostname } = require('os');
 const username = 'stadvdb36';
 const password = 'w5EuLsQ8WHk2XyfJaZhSNen4';
 
-const Proxmox_Server0 = new Proxmox({
-    hostname: 'STADVDB36-Server0',
-    username: 'stadvdb36',
-    password: 'w5EuLsQ8WHk2XyfJaZhSNen4'
-})
-
-
 router.get('/', async (req, res) => {
   try {
     const [rows, field] = await pool.query("SELECT * FROM appointments LIMIT 2")
     const jsonRows = {rows: JSON.parse(JSON.stringify(rows))}
     console.log(jsonRows)
-    res.render('intro', {title: "A Page", rows: jsonRows})
+    res.render('intro', {title: "A Page", rows: rows})
   } catch (err) {
     console.log(err)
     res.render('intro', {title: "A Page"})
