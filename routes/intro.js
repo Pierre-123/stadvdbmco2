@@ -1,8 +1,9 @@
-const { Router } = require('express'); 
+const { Router, json } = require('express'); 
 const router = Router();
 const axios = require('axios');
 const https = require('https');
 const Proxmox = require('proxmox');//https://www.npmjs.com/package/proxmox
+const pool = require('../conn/dbService')
 const { time } = require('console');
 const { hostname } = require('os');
 const username = 'stadvdb36';
@@ -15,8 +16,18 @@ const Proxmox_Server0 = new Proxmox({
 })
 
 
-router.get('/', (req, res) => {
-    res.render('intro', {title: "A Page"});
+router.get('/', async (req, res) => {
+  try {
+    const [rows, field] = await pool.query("SELECT * FROM appointments LIMIT 2")
+    const jsonRows = {rows: JSON.parse(JSON.stringify(rows))}
+    console.log(jsonRows)
+    res.render('intro', {title: "A Page", rows: jsonRows})
+  } catch (err) {
+    console.log(err)
+    res.render('intro', {title: "A Page"})
+    
+  }
+  
 });
 
 router.get('/proxy', async (req, res) => {
@@ -35,5 +46,6 @@ router.get('/proxy', async (req, res) => {
       res.status(500);
     }
   });
+
 
 module.exports = router;
