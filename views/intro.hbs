@@ -12,8 +12,16 @@
 
     <br><br>
     <div>
-        <input placeholder="search by id" id="search-by-id">
-        <button id="search-btn">Search</button>
+        <form id="searchForm">
+             <label for="database">Choose a car:</label>
+                <select name="database" id="option">
+                <option value="Central">Central</option>
+                <option value="Luzon">Luzon</option>
+                <option value="VisMin">Visayas and Midanao</option>
+                </select> 
+            <input placeholder="search by id" name="search" id="search-by-id">
+            <button type="submit" id="search-btn">Search</button>
+        </form>
     </div>
 
     <table id="table">

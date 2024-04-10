@@ -22,3 +22,4 @@ async function connect(){
         console.error('Error fetching data:', error);
     }
 }
+

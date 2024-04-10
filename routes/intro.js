@@ -3,7 +3,7 @@ const router = Router();
 const axios = require('axios');
 const https = require('https');
 const Proxmox = require('proxmox');//https://www.npmjs.com/package/proxmox
-const pool = require('../conn/dbService')
+const indexController = require('../controller/index.controller')
 const { time } = require('console');
 const { hostname } = require('os');
 const username = 'stadvdb36';
@@ -11,15 +11,34 @@ const password = 'w5EuLsQ8WHk2XyfJaZhSNen4';
 
 router.get('/', async (req, res) => {
   try {
-    const [rows, field] = await pool.query("SELECT * FROM Luzon LIMIT 10")
+    const rows = await indexController.getAllData()
     res.render('intro', {title: "A Page", rows: rows})
   } catch (err) {
     console.log(err)
     res.render('intro', {title: "A Page"})
     
   }
-  
 });
+
+router.get('/search',  async (req, res) => {
+  try {
+    console.log(req.params.id)
+    const rows = 'test'
+    res.render('intro', {title: "A Page", rows: rows})
+  } catch (err) {
+    console.log(err)
+    res.render('intro', {title: "A Page"})
+    
+  }
+}) 
+
+router.post('/', async (req, res) => {
+  try {
+    console.log('test')
+  } catch(err) {
+  console.log(err)
+}
+})
 
 router.get('/proxy', async (req, res) => {
     try { //getting https://ccscloud.dlsu.edu.ph/ gets the html page. adding the :20108 ERCONNRefuses/ETIMEDOUT hmm. 
@@ -37,6 +56,9 @@ router.get('/proxy', async (req, res) => {
       res.status(500);
     }
   });
+
+
+
 
 
 module.exports = router;
