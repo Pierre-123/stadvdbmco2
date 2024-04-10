@@ -24,19 +24,19 @@
             <th>type</th>
             <th>virtual</th>
         </thead>
-        {{#if rows}}
-            {{#each rows}}
-                <tbody>
-                    <tr>
-                        <td>{{rows.appointment_id}}</td>
-                        <td>{{rows.status}}</td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            {{/each}}
+        {{#each rows}}
+            <tbody>
+                <tr>
+                    <td>{{appointment_id}}</td>
+                    <td>{{status}}</td>
+                    <td>{{TimeQueued}}</td>
+                    <td>{{type}}</td>
+                    <td>{{Virtual}}</td>
+                </tr>
+            </tbody>
         {{else}}
             <tbody><tr><td class='no-data' colspan=5> No data</td></tr> </tbody>
-        {{/if}}
+        {{/each}}
     </table>
 </main>
 

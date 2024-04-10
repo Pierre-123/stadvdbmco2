@@ -1,4 +1,4 @@
-const { Router } = require('express'); 
+const { Router, json } = require('express'); 
 const router = Router();
 const axios = require('axios');
 const https = require('https');
@@ -18,12 +18,16 @@ const Proxmox_Server0 = new Proxmox({
 
 router.get('/', async (req, res) => {
   try {
-    const rows = await pool.query("SELECT * FROM appointments LIMIT 5")
-    console.log(rows)
+    const [rows, field] = await pool.query("SELECT * FROM appointments LIMIT 2")
+    const jsonRows = {rows: JSON.parse(JSON.stringify(rows))}
+    console.log(jsonRows)
+    res.render('intro', {title: "A Page", rows: jsonRows})
   } catch (err) {
     console.log(err)
+    res.render('intro', {title: "A Page"})
+    
   }
-    res.render('intro', {title: "A Page", rows: this.rows})
+  
 });
 
 router.get('/proxy', async (req, res) => {
