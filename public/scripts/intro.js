@@ -1,3 +1,4 @@
+const { put } = require("../../routes/intro");
 
 const proxmoxProxy = 'http://localhost:3000/proxy';
 const test_button = $("#test-btn");
@@ -63,7 +64,9 @@ async function deleteData(appointment) {
 async function editData(this){
     let appointmentID = appointment.getAttribute("data-apptid")
     try {
-        const response = await fetch(`/appointment/${appointmentID}`)
+        const response = await fetch(`/appointment/${appointmentID}`, {
+            method: "PUT"
+        })
     } catch (err) {
         console.log(err)
     }
