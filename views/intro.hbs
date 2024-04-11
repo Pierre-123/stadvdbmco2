@@ -78,8 +78,14 @@
             </div>
             <div class="form-container">
                 update an existing apptid ;3
-                <br>
+                <br><br>
                 <form id="updateForm" action="/update" method="post">
+                    <label for="database">Choose a db:</label>
+                    <select name="database" id="option">
+                    <option value="Luzon">Luzon</option>
+                    <option value="VisMin">Visayas and Mindanao</option>
+                    </select> 
+                    <br><br>
                     <label for="apptid">Appointment ID:</label>
                     <input type="text" id="apptid" name="apptid">
                     <br>
@@ -116,6 +122,13 @@
                     <br><br>
                     <button type="submit">Update An Entry! :3</button>
                 </form>
+            </div>
+            <br>
+            <br>
+            <div class="form-container">
+                <a id="Luzon_Node">Luzon Node</a>
+                <button id="VisMin_Node">VisMin Node</button>
+                <a role="button" id="Central_Node">Central Node</a>
             </div>
     </div>
     

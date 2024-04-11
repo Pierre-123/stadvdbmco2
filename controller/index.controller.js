@@ -238,19 +238,20 @@ const indexController = {
                let query = '';
                if (table === 'Luzon') {
                     query = `UPDATE Luzon 
-                             SET hospitalname=?, City=?, Province=?, status=?, type=?, Virtual=?
+                             SET hospitalname=?, city=?, province=?, status=?, type=?, \`Virtual\`=?
                              WHERE apptid=?`;
                     const [rows, field] = await pools.centralPool.query(query, [hospitalname, City, Province, status, type, Virtual, apptid]);
+                    return rows;
                } else if (table === 'VisMin') {
                     query = `UPDATE VisMin 
-                             SET hospitalname=?, City=?, Province=?, status=?, type=?, Virtual=?
+                             SET hospitalname=?, city=?, province=?, status=?, type=?, \`Virtual\`=?
                              WHERE apptid=?`;
                     const [rows, field] = await pools.centralPool2.query(query, [hospitalname, City, Province, status, type, Virtual, apptid]);
+                    return rows;
                } else {
                     // Handle invalid table name
                     throw new Error('Invalid table name specified');
                }
-               return rows;
           } catch (err) {
                console.log(err);
                throw err; // Rethrow the error for handling at a higher level

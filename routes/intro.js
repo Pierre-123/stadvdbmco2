@@ -43,7 +43,17 @@ router.post('/create', async (req, res) => { // Corrected the syntax error here
   }
 });
 
-
+router.post('/update', async (req, res) => {
+  try{
+    console.log(req.body)
+    await indexController.updateData(req.body.apptid, req.body.database, req.body.hospitalname, req.body.City, req.body.Province, req.body.status, req.body.type, req.body.Virtual);
+    console.log('update goods :)')
+    const rows = await indexController.getAllData()
+      res.render('intro', {title: "A Page", rows: rows})
+  } catch (err){
+    console.log(err)
+  }
+})
 
 router.get('/search',  async (req, res) => {
   try {

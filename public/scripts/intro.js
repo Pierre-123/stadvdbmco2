@@ -4,6 +4,9 @@ const proxmoxProxy = 'http://localhost:3000/proxy';
 const test_button = $("#test-btn");
 const search_button = $("#search-btn");
 //const create_button = $("#create-btn");
+const luzon_button = $("#Luzon_Node");
+const vismin_button = $("#VisMin_Node");
+const central_button = $("#Central_Node");
 
 $(document).ready(function () {
     test_button.click(function(){
@@ -13,6 +16,18 @@ $(document).ready(function () {
     search_button.click(function(){
         search();
         console.log("Search Performed")
+    })
+    luzon_button.click(function(){
+        window.location.href = '/luzon'
+        console.log("Bwa")
+    })
+    vismin_button.click(function(){
+        window.location.href = '/vismin'
+        console.log("Bwa")
+    })
+    central_button.click(function(){
+        window.location.href = '/'
+        console.log("Bwa")
     })
     /*create_button.click(function(){
         //add();
