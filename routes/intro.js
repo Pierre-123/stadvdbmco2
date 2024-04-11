@@ -32,9 +32,11 @@ router.post('/create', async (req, res) => { // Corrected the syntax error here
   try {
       // Call the appropriate controller function to handle data creation
       // For example:
-      // await indexController.addData(req.body.apptid, req.body.pxid, req.body.doctorid, req.body.hospitalname, req.body.City, req.body.Province, req.body.status, req.body.type, req.body.Virtual);
+      await indexController.postData(req.body.apptid, req.body.pxid, req.body.doctorid, req.body.hospitalname, req.body.City, req.body.Province, req.body.status, req.body.type, req.body.Virtual);
       console.log("Ping!");
-      res.status(201).send("Data created successfully"); // Send a success response
+      //res.status(201).send("Data created successfully"); // Send a success response
+      const rows = await indexController.getAllData()
+      res.render('intro', {title: "A Page", rows: rows})
   } catch (error) {
       console.log(error);
       res.status(500).send("Error creating data: " + error); // Send an error response
