@@ -1,60 +1,39 @@
 const express = require('express');
 const router = express.Router();
 
-const { queryDatabase } = require('../public/commons/javascript/queryDatabase.js');
+// Not sure const {  } = require
 
+// Define the supported isolation levels
+const isolationLevels = {
+  'read-uncommitted': 'READ UNCOMMITTED',
+  'read-committed': 'READ COMMITTED',
+  'repeatable-read': 'REPEATABLE READ',
+  'serializable': 'SERIALIZABLE'
+};
 
-router.post('/read-uncommitted', async (req, res) =>{
-    try{
-        queryDatabase('central', "SET GLOBAL TRANSACTION ISOLATION LEVEL READ UNCOMMITTED");
-        queryDatabase('luzon', "SET GLOBAL TRANSACTION ISOLATION LEVEL READ UNCOMMITTED");
-        queryDatabase('vismin', "SET GLOBAL TRANSACTION ISOLATION LEVEL READ UNCOMMITTED");
-
-        res.redirect('/')
-    } catch (error) {
-        console.error('Error during concurrent write-read:', error);
-        res.status(500).send('Internal Server Error');
+// Route handler for setting isolation level
+router.post('/:isolationLevel', async (req, res) => {
+  const { isolationLevel } = req.params;
+  
+  try {
+    // Check if the requested isolation level is supported
+    if (!isolationLevels.hasOwnProperty(isolationLevel)) {
+      throw new Error('Invalid isolation level');
     }
-})
-
-router.post('/read-committed', async (req, res) =>{
-    try{
-        queryDatabase('central', "SET GLOBAL TRANSACTION ISOLATION LEVEL READ COMMITTED");
-        queryDatabase('luzon', "SET GLOBAL TRANSACTION ISOLATION LEVEL READ COMMITTED");
-        queryDatabase('vismin', "SET GLOBAL TRANSACTION ISOLATION LEVEL READ COMMITTED");
-
-
-        res.redirect('/')
-    } catch (error) {
-        console.error('Error during concurrent write-read:', error);
-        res.status(500).send('Internal Server Error');
-    }
-})
-
-router.post('/repeatable-read', async (req, res) =>{
-    try{
-        queryDatabase('central', "SET GLOBAL TRANSACTION ISOLATION LEVEL REPEATABLE READ");
-        queryDatabase('luzon', "SET GLOBAL TRANSACTION ISOLATION LEVEL REPEATABLE READ");
-        queryDatabase('vismin', "SET GLOBAL TRANSACTION ISOLATION LEVEL REPEATABLE READ");
-
-        res.redirect('/')
-    } catch (error) {
-        console.error('Error during concurrent write-read:', error);
-        res.status(500).send('Internal Server Error');
-    }
-})
-
-router.post('/serializable', async (req, res) =>{
-    try{
-        queryDatabase('central', "SET GLOBAL TRANSACTION ISOLATION LEVEL SERIALIZABLE");
-        queryDatabase('luzon', "SET GLOBAL TRANSACTION ISOLATION LEVEL SERIALIZABLE");
-        queryDatabase('vismin', "SET GLOBAL TRANSACTION ISOLATION LEVEL SERIALIZABLE");
-
-        res.redirect('/')
-    } catch (error) {
-        console.error('Error during concurrent write-read:', error);
-        res.status(500).send('Internal Server Error');
-    }
-})
+    
+    // Set the requested isolation level for each node
+    const promises = ['central', 'luzon', 'vismin'].map(node => {
+      return queryDatabase(node, `SET GLOBAL TRANSACTION ISOLATION LEVEL ${isolationLevels[isolationLevel]}`);
+    });
+    
+    // Wait for all queries to complete
+    await Promise.all(promises);
+    
+    res.redirect('/');
+  } catch (error) {
+    console.error(`Error setting isolation level (${isolationLevel}):`, error);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
 module.exports = router;
