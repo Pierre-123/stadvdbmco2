@@ -92,19 +92,55 @@ const indexController = {
              console.log(err)
           }
      },
+
+     
      searchDate: async() => {
 
      },
-     updateData: async(apptid, table, hospitalname, City, Province, status, type, Virtual) => { //maybe need another page for updating values??? maybe, similar to creating but less fields I guess
-          try{
-               const [rows, field] = await pools.centralPool.query(//have if else statements for central1 or 2 either luzon or vismin to update accordingly.
-                    `UPDATE ?
-                    SET hospitalname=?, City=?, Province=?, status=?, type=?, Virtual=?
-                    WHERE apptid=?`, [table, hospitalname, City, Province, status, type, Virtual, apptid])
-          } catch(err) {
-               console.log(err)
+    // updateData: async(apptid, table, hospitalname, City, Province, status, type, Virtual) => { //maybe need another page for updating values??? maybe, similar to creating but less fields I guess
+     //     try{
+      //         const [rows, field] = await pools.centralPool.query(//have if else statements for central1 or 2 either luzon or vismin to update accordingly.
+       //             `UPDATE ?
+        //            SET hospitalname=?, City=?, Province=?, status=?, type=?, Virtual=?
+           //         WHERE apptid=?`, [table, hospitalname, City, Province, status, type, Virtual, apptid])
+         // } catch(err) {
+          //     console.log(err)
+        //  }
+     // },
+  
+     updateData: async (apptid, table, hospitalname, City, Province, status, type, Virtual) => {
+          try {
+               let query = '';
+               if (table === 'Luzon') {
+                    query = `UPDATE Luzon 
+                             SET hospitalname=?, City=?, Province=?, status=?, type=?, Virtual=?
+                             WHERE apptid=?`;
+               } else if (table === 'VisMin') {
+                    query = `UPDATE VisMin 
+                             SET hospitalname=?, City=?, Province=?, status=?, type=?, Virtual=?
+                             WHERE apptid=?`;
+               } else if (table === 'Central')
+               {
+                    query = `UPDATE VisMin 
+                             SET hospitalname=?, City=?, Province=?, status=?, type=?, Virtual=?
+                             WHERE apptid=?`;
+               }
+               
+               else {
+                    // Handle invalid table name
+                    throw new Error('Invalid table name specified');
+               }
+     
+               const [rows, field] = await pools.centralPool.query(query, [hospitalname, City, Province, status, type, Virtual, apptid]);
+               return rows;
+          } catch (err) {
+               console.log(err);
+               throw err; // Rethrow the error for handling at a higher level
           }
      },
+     
+
+
      deleteData: async(apptid) => {
           try{
                const [rows, field] = await pools.centralPool.query(
@@ -115,4 +151,8 @@ const indexController = {
           }
      }
 }
+
+
+
+
 module.exports = indexController

@@ -19,14 +19,29 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/create'), async (req, res)=> {//cannot post :(
-    try {
+//router.post('/create'), async (req, res)=> {//cannot post :(
+  //  try {
         //postData from index controller here, console.log to see whats wrong
-        console.log("Ping!")
-    } catch (error) {
-        console.log(error)
-    }
-}
+    //    console.log("Ping!")
+   // } catch (error) {
+     //   console.log(error)
+   // }
+//}
+
+router.post('/create', async (req, res) => { // Corrected the syntax error here
+  try {
+      // Call the appropriate controller function to handle data creation
+      // For example:
+      // await indexController.addData(req.body.apptid, req.body.pxid, req.body.doctorid, req.body.hospitalname, req.body.City, req.body.Province, req.body.status, req.body.type, req.body.Virtual);
+      console.log("Ping!");
+      res.status(200).send("Data created successfully"); // Send a success response
+  } catch (error) {
+      console.log(error);
+      res.status(500).send("Error creating data: " + error); // Send an error response
+  }
+});
+
+
 
 router.get('/search',  async (req, res) => {
   try {
