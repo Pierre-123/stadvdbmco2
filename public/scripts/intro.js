@@ -49,7 +49,7 @@ async function connect(){
     }
 }
 
-async function showDetails(appointment) {
+async function deleteData(appointment) {
     let appointmentID = appointment.getAttribute("data-apptid")
     try {
         const response = await fetch(`/appointment/${appointmentID}`,{
@@ -57,5 +57,14 @@ async function showDetails(appointment) {
         })
     } catch (err) {
         console.error(err)
+    }
+}
+
+async function editData(this){
+    let appointmentID = appointment.getAttribute("data-apptid")
+    try {
+        const response = await fetch(`/appointment/${appointmentID}`)
+    } catch (err) {
+        console.log(err)
     }
 }

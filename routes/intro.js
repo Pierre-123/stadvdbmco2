@@ -79,6 +79,15 @@ router.delete('/appointment/:id', async (req, res) => {
   }
 })
 
+router.put('/appointment/:id', async (req, res) => {
+  try{
+    const updateID = req.params.id
+    const response = await indexController.updateData(updateID)
+  } catch (err) {
+    console.log(err)
+  }
+})
+
 
 
 module.exports = router;
