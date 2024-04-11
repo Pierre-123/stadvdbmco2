@@ -55,15 +55,15 @@ async function deleteData(appointment) {
     const regionCode = appointment.getAttribute("data-region_code")
     console.log(appointmentID)
     console.log(regionCode)
-    /**
-     * try {
+    
+    try {
         const response = await fetch(`/appointment/${appointmentID}/${regionCode}`,{
             method: "DELETE"
         })
     } catch (err) {
         console.error(err)
     }
-     */
+     
 }
 
 async function editData(appointment){

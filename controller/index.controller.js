@@ -240,34 +240,34 @@ const indexController = {
                     query = `UPDATE Luzon 
                              SET hospitalname=?, City=?, Province=?, status=?, type=?, Virtual=?
                              WHERE apptid=?`;
+                    const [rows, field] = await pools.centralPool.query(query, [hospitalname, City, Province, status, type, Virtual, apptid]);
                } else if (table === 'VisMin') {
                     query = `UPDATE VisMin 
                              SET hospitalname=?, City=?, Province=?, status=?, type=?, Virtual=?
                              WHERE apptid=?`;
-               } else if (table === 'Central')
-               {
-                    query = `UPDATE VisMin 
-                             SET hospitalname=?, City=?, Province=?, status=?, type=?, Virtual=?
-                             WHERE apptid=?`;
-               }
-               
-               else {
+                    const [rows, field] = await pools.centralPool2.query(query, [hospitalname, City, Province, status, type, Virtual, apptid]);
+               } else {
                     // Handle invalid table name
                     throw new Error('Invalid table name specified');
                }
-     
-               const [rows, field] = await pools.centralPool.query(query, [hospitalname, City, Province, status, type, Virtual, apptid]);
                return rows;
           } catch (err) {
                console.log(err);
                throw err; // Rethrow the error for handling at a higher level
           }
      },
-     deleteData: async(apptid) => {
+     deleteData: async(apptid, regionCode) => {
           try{
-               const [rows, field] = await pools.centralPool.query(
-                    `DELETE FROM Luzon
-                    WHERE apptid= ?`, [apptid])
+               if(regionCode=='I'||regionCode=='II'||regionCode=='III'||regionCode=='IV-A'||regionCode=='IV-B'||regionCode=='V'||regionCode=='NCR'||regionCode=='CAR'){
+                    const [rows, field] = await pools.centralPool.query(
+                         `DELETE FROM Luzon
+                         WHERE apptid= ?`, [apptid])
+               } else{
+                    const [rows, field] = await pools.centralPool2.query(
+                         `DELETE FROM VisMin
+                         WHERE apptid= ?`, [apptid])
+               }
+               
           } catch (err) {
                console.log(err)
           }

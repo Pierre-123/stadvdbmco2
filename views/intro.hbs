@@ -6,76 +6,119 @@
     <button onclick="setIsolationLevel(this)" data-isolation="SERIALIZABLE">SERIALIZABLE</button>
 </isolation>
 <main>
-    <div>
-        <form id="createForm" action="/create" method="POST">
-            <label for="apptid">Appointment ID:</label>
-            <input type="text" id="apptid" name="apptid">
-            <br>
-            <br>
-            <label for="pxid">Patient ID:</label>
-            <input type="text" id="pxid" name="pxid">
-            <br>
-            <br>
-            <label for="doctorid">Doctor ID:</label>
-            <input type="text" id="doctorid" name="doctorid">
-            <br>
-            <br>
-            <label for="hospitalname">Hospital Name:</label>
-            <input type="text" id="hospitalname" name="hospitalname">
-            <br>
-            <br>
-            <label for="City">City:</label><!-- City, Province, RegionCod, Status, Type, Virtual cool if dropdown-->
-            <!-- RegionCode can auto matically fill in region name right???? then yea time queued and queue date we can probably just use current time??? o well start and end time can be null probs. anyway province n city probs fine to be string if proper input***--> 
-            <input type="text" id="City" name="City">
-            <br>
-            <br>
-            <label for="Province">Province:</label>
-            <input type="text" id="Province" name="Province">
-            <br>
-            <br>
-            <label for="RegionCode">Region Code:</label>
-            <select name="RegionCode" id="RegionCodeoption">
-                <option value=1>I</option>
-                <option value=2>II</option>
-                <option value=3>III</option>
-                <option value=4>IV-A</option>
-                <option value=5>IV-B</option>
-                <option value=6>V</option>
-                <option value=7>VI</option>
-                <option value=8>VII</option>
-                <option value=9>VIII</option>
-                <option value=10>IX</option>
-                <option value=11>X</option>
-                <option value=12>XI</option>
-                <option value=13>XII</option>
-                <option value=14>XIII</option>
-                <option value=15>NCR</option>
-                <option value=16>CAR</option>
-                <option value=17>ARMM</option>
-                <option value=18>BARMM</option>
-            </select><!-- and etc.-->
-            <br>
-            <br>
-            <label for="status">Status:</label>
-            <select name="status" id="statusoption">
-                <option value="Completed">Completed</option>
-                <option value="Queued">Queued</option>
-            </select>
-            <br>
-            <br>
-            <!-- type is automatically consultation? no other value hmm-->
-            <label for="virtual">Virtual:</label>
-            <select name="virtual" id="virtualoption">
-                <option value="">Not Applicable</option>
-                <option value="true">True</option>
-                <option value="false">False</option>
-            </select>
-            <br>
-            <br>
-            <button type="submit">Add An Entry! :3</button>
-        </form>
-        
+        <div class="form-container">
+                <form id="createForm" action="/create" method="POST">
+                    <label for="apptid">Appointment ID:</label>
+                    <input type="text" id="apptid" name="apptid">
+                    <br>
+                    <br>
+                    <label for="pxid">Patient ID:</label>
+                    <input type="text" id="pxid" name="pxid">
+                    <br>
+                    <br>
+                    <label for="doctorid">Doctor ID:</label>
+                    <input type="text" id="doctorid" name="doctorid">
+                    <br>
+                    <br>
+                    <label for="hospitalname">Hospital Name:</label>
+                    <input type="text" id="hospitalname" name="hospitalname">
+                    <br>
+                    <br>
+                    <label for="City">City:</label><!-- City, Province, RegionCod, Status, Type, Virtual cool if dropdown-->
+                    <!-- RegionCode can auto matically fill in region name right???? then yea time queued and queue date we can probably just use current time??? o well start and end time can be null probs. anyway province n city probs fine to be string if proper input***--> 
+                    <input type="text" id="City" name="City">
+                    <br>
+                    <br>
+                    <label for="Province">Province:</label>
+                    <input type="text" id="Province" name="Province">
+                    <br>
+                    <br>
+                    <label for="RegionCode">Region Code:</label>
+                    <select name="RegionCode" id="RegionCodeoption">
+                        <option value=1>I</option>
+                        <option value=2>II</option>
+                        <option value=3>III</option>
+                        <option value=4>IV-A</option>
+                        <option value=5>IV-B</option>
+                        <option value=6>V</option>
+                        <option value=7>VI</option>
+                        <option value=8>VII</option>
+                        <option value=9>VIII</option>
+                        <option value=10>IX</option>
+                        <option value=11>X</option>
+                        <option value=12>XI</option>
+                        <option value=13>XII</option>
+                        <option value=14>XIII</option>
+                        <option value=15>NCR</option>
+                        <option value=16>CAR</option>
+                        <option value=17>ARMM</option>
+                        <option value=18>BARMM</option>
+                    </select><!-- and etc.-->
+                    <br>
+                    <br>
+                    <label for="status">Status:</label>
+                    <select name="status" id="statusoption">
+                        <option value="Completed">Completed</option>
+                        <option value="Queued">Queued</option>
+                    </select>
+                    <br>
+                    <br>
+                    <!-- type is automatically consultation? no other value hmm-->
+                    <label for="virtual">Virtual:</label>
+                    <select name="virtual" id="virtualoption">
+                        <option value="">Not Applicable</option>
+                        <option value="true">True</option>
+                        <option value="false">False</option>
+                    </select>
+                    <br>
+                    <br>
+                    <button type="submit">Add An Entry! :3</button>
+                </form>
+                
+            </div>
+            <div class="form-container">
+                update an existing apptid ;3
+                <br>
+                <form id="updateForm" action="/update" method="post">
+                    <label for="apptid">Appointment ID:</label>
+                    <input type="text" id="apptid" name="apptid">
+                    <br>
+                    <br>
+                    <label for="hospitalname">Hospital Name:</label>
+                    <input type="text" id="hospitalname" name="hospitalname">
+                    <br><br>
+                    <label for="city">City:</label>
+                    <input type="text" id="city" name="city">
+                    <br><br>
+                    <label for="province">Province:</label>
+                    <input type="text" id="province" name="province">
+                    <br><br>
+                    <label for="status">Status:</label>
+                    <select name="status" id="statusoption">
+                        <option value="Completed">Completed</option>
+                        <option value="Queued">Queued</option>
+                    </select>
+                    <br>
+                    <br>
+                    <label for="type">Type:</label>
+                    <select name="type" id="type">
+                        <option value=" ">Not Applicable</option>
+                        <option value="Consultation">Consultation</option>
+                    </select>
+                    <br><br>
+                    <!-- type is automatically consultation? no other value hmm-->
+                    <label for="virtual">Virtual:</label>
+                    <select name="virtual" id="virtualoption">
+                        <option value="">Not Applicable</option>
+                        <option value="true">True</option>
+                        <option value="false">False</option>
+                    </select>
+                    <br><br>
+                    <button type="submit">Update An Entry! :3</button>
+                </form>
+            </div>
     </div>
+    
     
 
     <br><br>
@@ -133,3 +176,18 @@
 
 
 <script src="scripts/intro.js"></script>
+<script>
+    async function deleteData(appointment) {
+    let appointmentID = appointment.getAttribute("data-apptid")
+    const regionCode = appointment.getAttribute("data-region_code")
+    try {
+        console.log("Deleting")
+        const response = await fetch(`/appointment/${appointmentID}/${regionCode}`,{
+            method: "DELETE"
+        })
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+</script>

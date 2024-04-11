@@ -73,8 +73,8 @@ router.post('/', async (req, res) => {
 router.delete('/appointment/:id/:regionCode', async (req, res) => {
   try {
     const deleteID = req.params.id
-    const region_code = req.params.regionCode
-    const response = await indexController.deleteData(deleteID)
+    const regionCode = req.params.regionCode
+    const response = await indexController.deleteData(deleteID, regionCode)
     const rows = await indexController.getAllData()
     res.render('intro', {title: "A Page", rows: rows})
   } catch (err) {
