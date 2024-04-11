@@ -49,3 +49,13 @@ async function connect(){
     }
 }
 
+async function showDetails(appointment) {
+    let appointmentID = appointment.getAttribute("data-apptid")
+    try {
+        const response = await fetch(`/appointment/${appointmentID}`,{
+            method: "DELETE"
+        })
+    } catch (err) {
+        console.error(err)
+    }
+}

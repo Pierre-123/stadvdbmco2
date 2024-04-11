@@ -3,7 +3,7 @@ const pools = require('../conn/dbService')
 
 const indexController = {
      getAllData: async () => {
-          const [rows, field] = await pools.centralPool.query("SELECT * FROM Luzon LIMIT 100")
+          const [rows, field] = await pools.centralPool.query("SELECT * FROM Luzon.Luzon LIMIT 100")
           //console.log(rows)
           return rows
      },
@@ -138,14 +138,11 @@ const indexController = {
                throw err; // Rethrow the error for handling at a higher level
           }
      },
-     
-
-
      deleteData: async(apptid) => {
           try{
                const [rows, field] = await pools.centralPool.query(
                     `DELETE FROM Luzon
-                    WHERE apptid=?`, [apptid])
+                    WHERE apptid= ?`, [apptid])
           } catch (err) {
                console.log(err)
           }

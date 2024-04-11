@@ -34,7 +34,7 @@ router.post('/create', async (req, res) => { // Corrected the syntax error here
       // For example:
       // await indexController.addData(req.body.apptid, req.body.pxid, req.body.doctorid, req.body.hospitalname, req.body.City, req.body.Province, req.body.status, req.body.type, req.body.Virtual);
       console.log("Ping!");
-      res.status(200).send("Data created successfully"); // Send a success response
+      res.status(201).send("Data created successfully"); // Send a success response
   } catch (error) {
       console.log(error);
       res.status(500).send("Error creating data: " + error); // Send an error response
@@ -66,6 +66,17 @@ router.post('/', async (req, res) => {
   } catch(err) {
   console.log(err)
 }
+})
+// maybe this will work
+router.delete('/appointment/:id', async (req, res) => {
+  try {
+    const deleteID = req.params.id
+    const response = await indexController.deleteData(deleteID)
+    const rows = await indexController.getAllData()
+    res.render('intro', {title: "A Page", rows: rows})
+  } catch (err) {
+    console.log(err)
+  }
 })
 
 

@@ -62,7 +62,6 @@
         <form id="searchForm" action="/search" method="get">
              <label for="database">Choose a car:</label>
                 <select name="database" id="option">
-                <option value="Central">Central</option>
                 <option value="Luzon">Luzon</option>
                 <option value="VisMin">Visayas and Midanao</option>
                 </select> 
@@ -81,6 +80,7 @@
             <th>Time queue</th>
             <th>Type</th>
             <th>Virtual</th>
+            <th>Delete</th>
         </thead>
         {{#each rows}}
             <tbody>
@@ -101,10 +101,11 @@
                     {{else}}
                     <td>Null</td>
                     {{/if}}
+                    <td><button onclick="showDetails(this)" data-apptid="{{apptid}}">Delete</button></td>
                 </tr>
             </tbody>
         {{else}}
-            <tbody><tr><td class='no-data' colspan=5> No data</td></tr> </tbody>
+            <tbody><tr><td class='no-data' colspan=9> No data</td></tr> </tbody>
         {{/each}}
     </table>
 </main>
