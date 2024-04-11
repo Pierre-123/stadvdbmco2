@@ -70,9 +70,10 @@ router.post('/', async (req, res) => {
 }
 })
 // maybe this will work
-router.delete('/appointment/:id', async (req, res) => {
+router.delete('/appointment/:id/:regionCode', async (req, res) => {
   try {
     const deleteID = req.params.id
+    const region_code = req.params.regionCode
     const response = await indexController.deleteData(deleteID)
     const rows = await indexController.getAllData()
     res.render('intro', {title: "A Page", rows: rows})

@@ -51,17 +51,22 @@ async function connect(){
 }
 
 async function deleteData(appointment) {
-    let appointmentID = appointment.getAttribute("data-apptid")
-    try {
+    const appointmentID = appointment.getAttribute("data-apptid")
+    const regionCode = appointment.getAttribute("data-region_code")
+    console.log(appointmentID)
+    console.log(regionCode)
+    /**
+     * try {
         const response = await fetch(`/appointment/${appointmentID}`,{
             method: "DELETE"
         })
     } catch (err) {
         console.error(err)
     }
+     */
 }
 
-async function editData(this){
+async function editData(appointment){
     let appointmentID = appointment.getAttribute("data-apptid")
     try {
         const response = await fetch(`/appointment/${appointmentID}`, {
@@ -69,5 +74,17 @@ async function editData(this){
         })
     } catch (err) {
         console.log(err)
+    }
+}
+
+async function setIsolationLevel(inputIsolationLevel) {
+    const isolationLevel = inputIsolationLevel.getAttribute("data-isolation")
+    console.log(isolationLevel)
+    try {
+        const response = await fetch(`/isolation/${isolationLevel}`, {
+            method: "POST"
+        })
+    } catch (err) {
+        console.error(err)
     }
 }

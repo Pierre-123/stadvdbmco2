@@ -1,4 +1,10 @@
 
+<isolation>
+    <button onclick="setIsolationLevel(this)" data-isolation="READ UNCOMMITTED">READ UNCOMMITTED</button>
+    <button onclick="setIsolationLevel(this)"  data-isolation="READ COMMITTED">READ COMMITTED</button>
+    <button onclick="setIsolationLevel(this)" data-isolation="REPEATABLE READ">REPEATABLE READ</button>
+    <button onclick="setIsolationLevel(this)" data-isolation="SERIALIZABLE">SERIALIZABLE</button>
+</isolation>
 <main>
     <div>
         <form id="createForm" action="/create" method="POST">
@@ -116,7 +122,7 @@
                     {{else}}
                     <td>Null</td>
                     {{/if}}
-                    <td><button onclick="deleteData(this)" data-apptid="{{apptid}}">Delete</button></td>
+                    <td><button onclick="deleteData(this)" data-apptid="{{apptid}}" data-region_code="{{RegionCode}}">Delete</button></td>
                 </tr>
             </tbody>
         {{else}}
