@@ -57,7 +57,7 @@ async function deleteData(appointment) {
     console.log(regionCode)
     /**
      * try {
-        const response = await fetch(`/appointment/${appointmentID}`,{
+        const response = await fetch(`/appointment/${appointmentID}/${regionCode}`,{
             method: "DELETE"
         })
     } catch (err) {
