@@ -1,0 +1,73 @@
+
+<main>
+    <div class="form-container">
+                <a href="/Luzon" id="Luzon_Node">Luzon Node</a>
+                <a href="/VisMin" id="VisMin_Node">VisMin Node</button>
+                <a href="/" id="Central_Node">Central Node</a>
+            </div>
+            <br><br>
+    <div>
+        <form id="searchForm" action="/search" method="get">
+            <input placeholder="search by id" type="text" name="search" id="search_by_id">
+            <input type="hidden" name="database" value="VisMin">
+            <button type="submit" id="search-btn">Search</button>
+        </form>
+    </div>
+
+    <table id="table">
+        <thead>
+            <th>Appointment ID</th>
+            <th>Hospital Name</th>
+            <th>City</th>
+            <th>Province</th>
+            <th>Status</th>
+            <th>Time queue</th>
+            <th>Type</th>
+            <th>Virtual</th>
+            <th>Delete</th>
+        </thead>
+        {{#each rows}}
+            <tbody>
+                <tr>
+                    <td>{{apptid}}</td>
+                    {{#if hospitalname}}
+                    <td>{{hospitalname}}</td>
+                    {{else}}
+                    <td>Null</td>
+                    {{/if}}
+                    <td>{{City}}</td>
+                    <td>{{Province}}</td>
+                    <td>{{status}}</td>
+                    <td>{{TimeQueued}}</td>
+                    <td>{{type}}</td>
+                    {{#if Virtual}}
+                    <td>{{Virtual}}</td>
+                    {{else}}
+                    <td>Null</td>
+                    {{/if}}
+                    <td><button onclick="deleteData(this)" data-apptid="{{apptid}}" data-region_code="{{RegionCode}}">Delete</button></td>
+                </tr>
+            </tbody>
+        {{else}}
+            <tbody><tr><td class='no-data' colspan=9> No data</td></tr> </tbody>
+        {{/each}}
+    </table>
+</main>
+
+
+<script src="scripts/intro.js"></script>
+<script>
+    async function deleteData(appointment) {
+    let appointmentID = appointment.getAttribute("data-apptid")
+    const regionCode = appointment.getAttribute("data-region_code")
+    try {
+        console.log("Deleting")
+        const response = await fetch(`/appointment/${appointmentID}/${regionCode}`,{
+            method: "DELETE"
+        })
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+</script>

@@ -1,0 +1,122 @@
+
+<main>
+            </div>
+            <div class="form-container">
+                update an existing apptid ;3
+                <br><br>
+                <form id="updateForm" action="/update" method="post">
+                    <input type="hidden" name="database" value="Luzon">
+                    <label for="apptid">Appointment ID:</label>
+                    <input type="text" id="apptid" name="apptid">
+                    <br>
+                    <br>
+                    <label for="hospitalname">Hospital Name:</label>
+                    <input type="text" id="hospitalname" name="hospitalname">
+                    <br><br>
+                    <label for="city">City:</label>
+                    <input type="text" id="city" name="city">
+                    <br><br>
+                    <label for="province">Province:</label>
+                    <input type="text" id="province" name="province">
+                    <br><br>
+                    <label for="status">Status:</label>
+                    <select name="status" id="statusoption">
+                        <option value="Completed">Completed</option>
+                        <option value="Queued">Queued</option>
+                    </select>
+                    <br>
+                    <br>
+                    <label for="type">Type:</label>
+                    <select name="type" id="type">
+                        <option value=" ">Not Applicable</option>
+                        <option value="Consultation">Consultation</option>
+                    </select>
+                    <br><br>
+                    <!-- type is automatically consultation? no other value hmm-->
+                    <label for="virtual">Virtual:</label>
+                    <select name="virtual" id="virtualoption">
+                        <option value="">Not Applicable</option>
+                        <option value="true">True</option>
+                        <option value="false">False</option>
+                    </select>
+                    <br><br>
+                    <button type="submit">Update An Entry! :3</button>
+                </form>
+            </div>
+            <br>
+            <br>
+            <div class="form-container">
+                <a href="/Luzon" id="Luzon_Node">Luzon Node</a>
+                <a href="/VisMin" id="VisMin_Node">VisMin Node</button>
+                <a href="/" id="Central_Node">Central Node</a>
+            </div>
+    </div>
+    
+    
+
+    <br><br>
+    <div>
+        <form id="searchForm" action="/search" method="get">
+            <input placeholder="search by id" type="text" name="search" id="search_by_id">
+            <input type="hidden" name="database" value="Luzon">
+            <button type="submit" id="search-btn">Search</button>
+        </form>
+    </div>
+
+    <table id="table">
+        <thead>
+            <th>Appointment ID</th>
+            <th>Hospital Name</th>
+            <th>City</th>
+            <th>Province</th>
+            <th>Status</th>
+            <th>Time queue</th>
+            <th>Type</th>
+            <th>Virtual</th>
+            <th>Delete</th>
+        </thead>
+        {{#each rows}}
+            <tbody>
+                <tr>
+                    <td>{{apptid}}</td>
+                    {{#if hospitalname}}
+                    <td>{{hospitalname}}</td>
+                    {{else}}
+                    <td>Null</td>
+                    {{/if}}
+                    <td>{{City}}</td>
+                    <td>{{Province}}</td>
+                    <td>{{status}}</td>
+                    <td>{{TimeQueued}}</td>
+                    <td>{{type}}</td>
+                    {{#if Virtual}}
+                    <td>{{Virtual}}</td>
+                    {{else}}
+                    <td>Null</td>
+                    {{/if}}
+                    <td><button onclick="deleteData(this)" data-apptid="{{apptid}}" data-region_code="{{RegionCode}}">Delete</button></td>
+                </tr>
+            </tbody>
+        {{else}}
+            <tbody><tr><td class='no-data' colspan=9> No data</td></tr> </tbody>
+        {{/each}}
+    </table>
+</main>
+
+
+<script src="scripts/intro.js"></script>
+<script>
+    async function deleteData(appointment) {
+    let appointmentID = appointment.getAttribute("data-apptid")
+    const regionCode = appointment.getAttribute("data-region_code")
+    try {
+        console.log("Deleting")
+        const response = await fetch(`/appointment/${appointmentID}/${regionCode}`,{
+            method: "DELETE"
+        })
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+</script>
