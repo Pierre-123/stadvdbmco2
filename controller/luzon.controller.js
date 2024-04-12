@@ -27,8 +27,6 @@ const luzonController = {
           `)
           return rows
           }
-          pools.luzonPool.query(iso_level_ru)
-          console.log(iso_level_ru)
           pools.luzonPool.query(start_query)
           console.log(start_query)
           const [rows, field] = await pools.luzonPool.query(

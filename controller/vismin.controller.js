@@ -20,12 +20,15 @@ const visMinController = {
                `)
                return rows;
           }
+          pools.visMinPool.query(start_query)
+          console.log(start_query)
           const [rows, field] = await pools.visMinPool.query(`
           SELECT * 
           FROM VisMin
           WHERE apptid = ? 
           LIMIT 10
           `, [variable])
+          pools.visMinPool.query(commit)
           return rows
      },
      deleteVisMinData: async (apptid) => {
