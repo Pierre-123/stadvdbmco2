@@ -8,10 +8,10 @@
             </div>
             <br><br>
     <div>
-        <form id="searchForm" action="/search" method="get">
+        <form id="searchForm" action="/vismin/search" method="get">
             <input placeholder="search by id" type="text" name="search" id="search_by_id">
             <input type="hidden" name="database" value="VisMin">
-            <button type="submit" id="search-btn">Search</button>
+            <button type="submit" id="search-vismin-btn">Search</button>
         </form>
     </div>
 
@@ -56,7 +56,7 @@
 </main>
 
 
-<script src="scripts/intro.js"></script>
+<!--<script src="scripts/intro.js"></script>-->
 <script>
     async function deleteData(appointment) {
     let appointmentID = appointment.getAttribute("data-apptid")

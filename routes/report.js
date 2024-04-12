@@ -5,7 +5,7 @@ const indexController = require('../controller/index.controller')
 router.get('/', async (req, res) => {
     try {
       console.log("put report here")
-      res.render('report', {title: "Report", rows: rows})
+      res.render('report', {title: "Report"})
     } catch (err) {
       console.log(err)
       res.render('report', {title: "Report"})
