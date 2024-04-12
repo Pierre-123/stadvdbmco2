@@ -5,12 +5,14 @@ const https = require('https');
 const Proxmox = require('proxmox');//https://www.npmjs.com/package/proxmox
 const indexController = require('../controller/index.controller')
 const isolationController = require('../controller/isolation.controller')
+const recoveryController = require('../controller/recovery.controller')
 const { time } = require('console');
 const { hostname, type } = require('os');
 const { getJSON } = require('jquery');
 
 router.get('/', async (req, res) => {
   try {
+    recoveryController.introRecovery();
     const rows = await indexController.getAllData()
     res.render('intro', {title: "Central", rows: rows})
   } catch (err) {
@@ -25,15 +27,31 @@ router.post('/create', async (req, res) => { // Corrected the syntax error here
       // Call the appropriate controller function to handle data creation
       // For example:
       console.log(req.body)
-      await indexController.postData(req.body.apptid, req.body.pxid, req.body.doctorid, req.body.hospitalname, req.body.City, 
+      const response = await indexController.postData(req.body.apptid, req.body.pxid, req.body.doctorid, req.body.hospitalname, req.body.City, 
         req.body.Province, req.body.RegionCode, req.body.status, req.body.type, req.body.Virtual);
+      
       console.log("Ping!");
       //res.status(201).send("Data created successfully"); // Send a success response
       const rows = await indexController.getAllData()
       res.render('intro', {title: "Central", rows: rows})
   } catch (error) {
-      console.log(error);
-      res.status(500).send("Error creating data: " + error); // Send an error response
+      console.log(error.message);
+      if(error.message==='connect ETIMEDOUT'){//if central is down
+        const hold = req.body;//check region code then send to vismin/luzon controller temporary databse
+        console.log(req.body);
+        if(req.body.RegionCode=='1'||req.body.RegionCode=='2'||req.body.RegionCode=='3'||req.body.RegionCode=='4'||req.body.RegionCode=='5'||req.body.RegionCode=='6'||req.body.RegionCode=='15'||req.body.RegionCode=='16'){
+          //send to luzon temp database
+          console.log(req.body);
+          await recoveryController.addTemporaryValues(req.body);
+          //apptid, pxid, doctorid, hospitalname, City, Province, RegionName, RegionCode, status, TimeQueued, QueueDate, StartTime, EndTime, type, Virtual
+        } else {
+          //send to vismin temp database
+        }
+        //when central server is up, grab it from the temporary database
+        console.log("no respons")
+
+      }
+      res.status(500).render('intro', {title: "Central"}); // Send an error response
   }
 });
 

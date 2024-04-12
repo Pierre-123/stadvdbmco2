@@ -33,6 +33,8 @@ router.get('/', async (req, res) => {
       res.status(201).render('luzon', {title: "Luzon Node", rows: rows})
     } catch (err) {
       console.error(error)
+        
+
       res.render('luzon', {title: "Luzon Node"})
     }
   })
