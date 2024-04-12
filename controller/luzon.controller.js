@@ -55,7 +55,7 @@ const luzonController = {
                await pools.luzonPool.query(commit);
                return rows;
           } catch (err) {
-
+               console.log(err)
           }
      },
      deleteLuzonData: async (apptid) => {

@@ -8,13 +8,16 @@
             <br><br>
             <div>Amount of Appointments: {{nAppointments}}</div>
             <br><br>
-            <div>Completed Appointments: </div> <!-- percentage maybe -->
+            <div>Completed Appointments: {{cAppointments}}</div> <!-- percentage maybe -->
             <br><br>
-            <div>Amount of Distinct Patients: </div>
+            <div>Amount of Distinct Patients: {{nDPatients}}</div>
             <br><br>
-            <div>Amount of Distinct Doctors: </div>
+            <div>Amount of Distinct Doctors: {{nDDoctors}}</div>
             <br><br>
             <div>Appointments per Year: </div> <!-- starting from the least year to the most recent -->
+            {{#each nAppYear}}
+                <div>{{@key}}: {{this}}</div>
+            {{/each}}
 
 
             
