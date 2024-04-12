@@ -39,6 +39,25 @@ const luzonController = {
           pools.luzonPool.query(commit)
           return rows
      },
+     updateLuzonData: async (data) => {
+          try {
+               query = `UPDATE Luzon 
+                         SET hospitalname=?, City=?, Province=?, status=?, type=?, \`Virtual\`=?
+                         WHERE apptid=?`;
+               await pools.luzonPool.query(start_query); 
+               const [rows, field] = await pools.centralPool.query(query, [data.hospitalname, 
+                                                                           data.City, 
+                                                                           data.Province, 
+                                                                           data.status, 
+                                                                           data.type, 
+                                                                           data.virtual, 
+                                                                           data.apptid]);
+               await pools.luzonPool.query(commit);
+               return rows;
+          } catch (err) {
+
+          }
+     },
      deleteLuzonData: async (apptid) => {
           try{
                const [rows, field] = await pools.centralPool.query(

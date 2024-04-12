@@ -55,7 +55,18 @@ router.get('/', async (req, res) => {
       
     }
   }) */
-
+router.post('/update', async (req, res) => {
+  try{
+    console.log(req.body)
+    const response = await luzonController.updateLuzonData(req.body);
+    const rows = await luzonController.getLuzonData()
+    console.log(rows);
+      res.render('luzon', {title: "Luzon", rows: rows})
+  } catch (err){
+    console.log(err)
+    res.render('luzon', {title: "Luzon"})
+  }
+})
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
