@@ -15,6 +15,8 @@ router.get('/', async (req, res) => {
   router.get('/search', async (req, res) => {
     try{
       const rows = await visMinController.getVisMinSearch(req.query.search)
+      console.log(req.query.search)
+      console.log('Vismin search')
       res.render('vismin', {title: "VisMin Node", rows: rows})
     } catch (err) {
       console.log(err)

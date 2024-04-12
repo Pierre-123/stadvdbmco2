@@ -1,6 +1,7 @@
 const { Router, json } = require('express'); 
 const router = Router();
 const luzonController = require('../controller/luzon.controller');
+const indexController = require('../controller/index.controller')
 const { error } = require('jquery');
 
 router.get('/', async (req, res) => {
@@ -16,6 +17,7 @@ router.get('/', async (req, res) => {
   router.get('/search', async (req, res) => {
     try{
       const rows = await luzonController.getLuzonSearch(req.query.search)
+      console.log(req.query.search)
       res.render('luzon', {title: "Luzon Node", rows: rows})
     } catch (err) {
       console.error(error)
@@ -25,6 +27,7 @@ router.get('/', async (req, res) => {
 
   router.delete('/appointment/:id', async (req, res) => {
     try{ 
+        console.log("router delete")
       const deleteID = await luzonController.deleteLuzonData(req.params.id)
       const rows = await luzonController.getLuzonData()
       res.status(201).render('luzon', {title: "Luzon Node", rows: rows})
@@ -33,7 +36,7 @@ router.get('/', async (req, res) => {
       res.render('luzon', {title: "Luzon Node"})
     }
   })
-
+/*
   router.get('/search',  async (req, res) => {
     try {
       const rows = await indexController.getSearchData(req.query.database, req.query.search)
@@ -41,7 +44,7 @@ router.get('/', async (req, res) => {
           console.log('req search is string')
       }
       console.log(req.query.database)
-      console.log(req.query.search)*/
+      console.log(req.query.search)
       console.log("Search attempted Luzon Node")
       res.render('luzon', {title: "Luzon Node", rows: rows})
     } catch (err) {
@@ -49,6 +52,10 @@ router.get('/', async (req, res) => {
       res.render('luzon', {title: "Luzon Node"})
       
     }
-  }) 
+  }) */
+
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
   module.exports = router;

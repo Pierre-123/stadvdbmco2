@@ -17,9 +17,9 @@ router.post('/:isolationLevel', async (req, res) => {
   
   try {
     // Check if the requested isolation level is supported
-    if (!isolationLevels.hasOwnProperty(isolationLevel)) {
+    /*if (!isolationLevels.hasOwnProperty(isolationLevel)) {
       throw new Error('Invalid isolation level');
-    }
+    }*/
     
     // Set the requested isolation level for each node
     const promises = ['central', 'luzon', 'vismin'].map(node => {

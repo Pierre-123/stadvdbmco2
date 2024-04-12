@@ -1,28 +1,33 @@
 const pools = require('../conn/dbService')
+const iso_level_ru = `SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;` //just for reading, https://www.freecodecamp.org/news/how-to-use-mysql-transactions/
+const iso_level_rc = `SET TRANSACTION ISOLATION LEVEL READ COMMITTED;` //can be used for insert-read
+const start_query = `START TRANSACTION;`
+const commit = `COMMIT;`
 
+//central will commit after a delay?
 const indexController = {
      getAllData: async () => {
-          const [rows, field] = await pools.centralPool.query("SELECT * FROM Luzon.Luzon LIMIT 100")
+          const [rows, field] = await pools.centralPool.query("SELECT * FROM Luzon.Luzon LIMIT 10")
           //console.log(rows)
           return rows
      },
      getSearchData: async (database, variable) => {
           if (!variable){ //if empty variable
                if(database=='Luzon'){
-                    const [rows, field] = await pools.luzonPool.query(`
+                    const [rows, field] = await pools.centralPool.query(`
                     SELECT * 
                     FROM ` + database + `
                     LIMIT 10
                     `, [variable])
                     return rows
                } else if(database=='VisMin'){
-                    const [rows, field] = await pools.visMinPool.query(`
+                    const [rows, field] = await pools.centralPool2.query(`
                     SELECT * 
                     FROM ` + database + ` 
                     LIMIT 10
                     `, [variable])
                     return rows
-               } else if (database =='Central'){ 
+               } /*else if (database =='Central'){ 
                     const [rows, field] = await pools.centralPool2.query(`
                     SELECT * 
                     FROM VisMin
@@ -37,19 +42,22 @@ const indexController = {
                     console.log(rows2)
                     const row_processed = rows.concat(rows2)
                     return row_processed
-               }
+               }*/
           }
           if (database == 'Luzon'){
-               const [rows, field] = await pools.luzonPool.query(`
-               SELECT * 
+              pools.luzonPool.query(start_query); 
+               const [rows, field] = await pools.luzonPool.query(
+                    `
+                    SELECT * 
                FROM ` + database + `
                WHERE apptid = ? 
                LIMIT 10
                `, [variable])
+               pools.luzonPool.query(commit);
                return rows
           } else if (database =='VisMin'){
-               const [rows, field] = await pools.visMinPool.query(`
-               SELECT * 
+               const [rows, field] = await pools.visMinPool.query(
+               `SELECT * 
                FROM ` + database + `
                WHERE apptid = ? 
                LIMIT 10
@@ -79,11 +87,13 @@ const indexController = {
           try {
                type = 'Consultation';
                var Database;
-               switch(RegionCode){
+               var nRC = parseInt(RegionCode)
+               switch(nRC){
                     case 1:
                          RegionCode = 'I'
                          RegionName = 'Ilocos Region';
                          Database = 'Luzon';
+                         console.log("Test")
                          break;
                     case 2:
                          RegionCode = 'II'
@@ -237,13 +247,15 @@ const indexController = {
                let query = '';
                if (table === 'Luzon') {
                     query = `UPDATE Luzon 
-                             SET hospitalname=?, city=?, province=?, status=?, type=?, \`Virtual\`=?
+                             SET hospitalname=?, City=?, Province=?, status=?, type=?, \`Virtual\`=?
                              WHERE apptid=?`;
+                    pools.centralPool.query(start_query); 
                     const [rows, field] = await pools.centralPool.query(query, [hospitalname, City, Province, status, type, Virtual, apptid]);
+                    pools.centralPool.query(commit);
                     return rows;
                } else if (table === 'VisMin') {
                     query = `UPDATE VisMin 
-                             SET hospitalname=?, city=?, province=?, status=?, type=?, \`Virtual\`=?
+                             SET hospitalname=?, City=?, Province=?, status=?, type=?, \`Virtual\`=?
                              WHERE apptid=?`;
                     const [rows, field] = await pools.centralPool2.query(query, [hospitalname, City, Province, status, type, Virtual, apptid]);
                     return rows;
@@ -259,13 +271,17 @@ const indexController = {
      deleteData: async(apptid, regionCode) => {
           try{
                if(regionCode=='I'||regionCode=='II'||regionCode=='III'||regionCode=='IV-A'||regionCode=='IV-B'||regionCode=='V'||regionCode=='NCR'||regionCode=='CAR'){
+                    pools.centralPool.query(start_query); 
                     const [rows, field] = await pools.centralPool.query(
                          `DELETE FROM Luzon
                          WHERE apptid= ?`, [apptid])
+                    pools.centralPool.query(commit);
                } else{
+                    pools.centralPool.query(start_query); 
                     const [rows, field] = await pools.centralPool2.query(
                          `DELETE FROM VisMin
                          WHERE apptid= ?`, [apptid])
+                    pools.centralPool.query(commit);
                }
                
           } catch (err) {

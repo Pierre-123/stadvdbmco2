@@ -12,6 +12,14 @@ const visMinController = {
           }
      },
      getVisMinSearch: async (variable) => {
+          if(!variable){
+               const [rows, field] = await pools.visMinPool.query(`
+               SELECT * 
+               FROM VisMin
+               LIMIT 10
+               `)
+               return rows;
+          }
           const [rows, field] = await pools.visMinPool.query(`
           SELECT * 
           FROM VisMin
@@ -22,7 +30,7 @@ const visMinController = {
      },
      deleteVisMinData: async (apptid) => {
           try{
-               const [rows, field] = await pools.visMinPool.query(
+               const [rows, field] = await pools.centralPool2.query(
                     `DELETE FROM VisMin
                     WHERE apptid= ?`, [apptid])
                

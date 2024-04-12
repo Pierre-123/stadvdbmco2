@@ -112,7 +112,7 @@
     const regionCode = appointment.getAttribute("data-region_code")
     try {
         console.log("Deleting")
-        const response = await fetch(`/appoitment/${appointmentID}`,{
+        const response = await fetch(`/luzon/appointment/${appointmentID}`,{
             method: "DELETE"
         })
     } catch (err) {
