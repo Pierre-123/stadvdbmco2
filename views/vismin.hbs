@@ -62,7 +62,7 @@
     const regionCode = appointment.getAttribute("data-region_code")
     try {
         console.log("Deleting")
-        const response = await fetch(`/appointment/${appointmentID}/${regionCode}`,{
+        const response = await fetch(`/appointment/${appointmentID}`,{
             method: "DELETE"
         })
     } catch (err) {
