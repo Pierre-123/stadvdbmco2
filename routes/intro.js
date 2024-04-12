@@ -11,10 +11,10 @@ const { getJSON } = require('jquery');
 router.get('/', async (req, res) => {
   try {
     const rows = await indexController.getAllData()
-    res.render('intro', {title: "A Page", rows: rows})
+    res.render('intro', {title: "Central", rows: rows})
   } catch (err) {
     console.log(err)
-    res.render('intro', {title: "A Page"})
+    res.render('intro', {title: "Central"})
     
   }
 });
@@ -36,7 +36,7 @@ router.post('/create', async (req, res) => { // Corrected the syntax error here
       console.log("Ping!");
       //res.status(201).send("Data created successfully"); // Send a success response
       const rows = await indexController.getAllData()
-      res.render('intro', {title: "A Page", rows: rows})
+      res.render('intro', {title: "Central", rows: rows})
   } catch (error) {
       console.log(error);
       res.status(500).send("Error creating data: " + error); // Send an error response
@@ -64,10 +64,10 @@ router.get('/search',  async (req, res) => {
     console.log(req.query.database)
     console.log(req.query.search)*/
     console.log("Search attempted")
-    res.render('intro', {title: "A Page", rows: rows})
+    res.render('intro', {title: "Central", rows: rows})
   } catch (err) {
     console.log(err)
-    res.render('intro', {title: "A Page"})
+    res.render('intro', {title: "Central"})
     
   }
 }) 
@@ -86,7 +86,7 @@ router.delete('/appointment/:id/:regionCode', async (req, res) => {
     const regionCode = req.params.regionCode
     const response = await indexController.deleteData(deleteID, regionCode)
     const rows = await indexController.getAllData()
-    res.render('intro', {title: "A Page", rows: rows})
+    res.render('intro', {title: "Central", rows: rows})
   } catch (err) {
     console.log(err)
   }
