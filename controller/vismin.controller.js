@@ -7,7 +7,7 @@ const visMinController = {
                SELECT * 
                FROM VisMin
                LIMIT 10
-               `, [variable])
+               `)
                return rows
           }
      },

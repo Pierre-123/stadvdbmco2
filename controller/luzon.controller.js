@@ -7,7 +7,7 @@ const luzonController = {
                SELECT * 
                FROM Luzon
                LIMIT 10
-               `, [variable])
+               `)
                return rows
           }
      },
