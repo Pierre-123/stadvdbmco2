@@ -16,13 +16,15 @@ app.use(express.urlencoded({ extended:true }));
 const introRoute = require('./routes/intro');
 const isolationRoute = require('./routes/isolation')
 const luzonRoute = require('./routes/luzon');
-const visminRoute = require('./routes/vismin')
+const visminRoute = require('./routes/vismin');
+const reportRoute = require('./routes/report');
 
 //Routes - Pages
 app.use('/',        introRoute);
 app.use('/isolation', isolationRoute)
 app.use('/luzon',   luzonRoute);
 app.use('/vismin', visminRoute);
+app.use('/report', reportRoute);
 app.engine("hbs", exphbs.engine({extname: 'hbs'}));
 app.set("view engine", "hbs")
 app.set("views", "./views")

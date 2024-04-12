@@ -1,16 +1,17 @@
 
 <main>
-    <div class="form-container">
-                <a href="/Luzon" id="Luzon_Node">Luzon Node</a>
-                <a href="/VisMin" id="VisMin_Node">VisMin Node</button>
+<div class="form-container">
+                <a href="/luzon" id="Luzon_Node">Luzon Node</a>
+                <a href="/vismin" id="VisMin_Node">VisMin Node</a>
                 <a href="/" id="Central_Node">Central Node</a>
+                <a href="/report" id="Report">Report</a>
             </div>
             <br><br>
     <div>
-        <form id="searchForm" action="/search" method="get">
+        <form id="searchForm" action="/vismin/search" method="get">
             <input placeholder="search by id" type="text" name="search" id="search_by_id">
             <input type="hidden" name="database" value="VisMin">
-            <button type="submit" id="search-btn">Search</button>
+            <button type="submit" id="search-vismin-btn">Search</button>
         </form>
     </div>
 
@@ -55,7 +56,7 @@
 </main>
 
 
-<script src="scripts/intro.js"></script>
+<!--<script src="scripts/intro.js"></script>-->
 <script>
     async function deleteData(appointment) {
     let appointmentID = appointment.getAttribute("data-apptid")
